@@ -59,4 +59,10 @@ public class UserController {
         userService.deleteUser(id);
         return "redirect:/";
     }
+
+    @GetMapping(value = "/{id}")
+    public String getUserById(@PathVariable int id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+        return "user";
+    }
 }
