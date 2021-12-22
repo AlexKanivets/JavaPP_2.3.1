@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -32,9 +31,7 @@ public class UserController {
     }
 
     @PostMapping()
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            return "new";
+    public String createUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
         userService.createUser(user);
         return "redirect:/";
     }
@@ -46,10 +43,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
+    public String updateUser(@ModelAttribute("user") User user, BindingResult bindingResult,
                              @PathVariable("id") int id) {
-        if (bindingResult.hasErrors())
-            return "edit";
         userService.updateUser(id, user);
         return "redirect:/";
     }
